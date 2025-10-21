@@ -1,11 +1,12 @@
 import { useState } from "react";
 
-import Loader from "./components/Loader";
 import FlyerForm from "./components/FlyerForm";
 import { downloadImage } from "../utils/downloadImage";
 import DownloadIcon from "./components/DownloadIcon";
 import type { Flyer } from "../type";
 import toast from "react-hot-toast";
+
+import flyer from "../assets/flyer.jpg";
 
 export default function FlyerGenerator() {
   const [flyerInfo, setFlyerInfo] = useState<Flyer>();
@@ -32,7 +33,7 @@ export default function FlyerGenerator() {
         </h1>
       </header>
       <main>
-        <div className=" text-white  rounded-2xl shadow-2xl md:flex items-center justify-center gap-10 w-11/12 max-w-7xl  mx-auto">
+        <div className=" text-white  rounded-2xl shadow-2xl md:flex justify-center items-center gap-10 w-11/12  max-w-7xl  mx-auto">
           <FlyerForm
             onSubmit={onSubmit}
             onStatusChange={onStatusChange}
@@ -40,19 +41,13 @@ export default function FlyerGenerator() {
             status={status}
           />
           <div className="mt-8 text-center">
-            <div className="bg-gray-900 border border-yellow-500 rounded-lg overflow-hidden max-w-96 mx-auto">
-              {isLoading && (
-                <div className=" w-96 h-96 my-auto text-yellow-400">
-                  <Loader />
-                  <p>Composing your birthday flyer...</p>
-                </div>
-              )}
-              {!isLoading && flyerInfo?.url && (
-                <div className="relative">
+            <div className="bg-gray-900 border border-yellow-500 rounded-lg  max-w-96 mx-auto">
+              {!isLoading && flyerInfo?.url ? (
+                <div className="relative overflow-hidden rounded-lg">
                   <img
-                    src={flyerInfo.url}
+                    src={flyerInfo.url || flyer}
                     alt="Birthday Flyer"
-                    className=" block w-full "
+                    className="w-full"
                   />
                   <button
                     onClick={() =>
@@ -63,16 +58,14 @@ export default function FlyerGenerator() {
                         onSuccess: (message) => toast.success(message),
                       })
                     }
-                    className="absolute top-2 right-2 p-2 cursor-pointer rounded-full bg-gray-700 "
+                    className="absolute top-2 right-2 p-2 cursor-pointer rounded-full bg-gray-900 "
                   >
                     <DownloadIcon />
                   </button>
                 </div>
-              )}
-
-              {!isLoading && !flyerInfo?.url && (
-                <div className="w-96 h-96 flex items-center justify-center text-gray-400">
-                  Your flyer will appear here
+              ) : (
+                <div className=" px-10 md:px-20 w-full max-w-96 h-96 flex justify-center items-center text-center text-gray-400">
+                  <p>Your flyer will appear here</p>
                 </div>
               )}
             </div>

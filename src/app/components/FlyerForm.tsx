@@ -50,7 +50,7 @@ function FlyerForm({
   return (
     <form
       onSubmit={handleSubmit(onFormSubmit)}
-      className="space-y-6 bg-gray-800 p-6 rounded-xl border border-gray-700 w-96 mx-auto md:mx-0"
+      className="space-y-6 bg-gray-800 p-6 rounded-xl border border-gray-700 z max-w-96 md:w-6/12 lg:w-10/12 mx-auto md:mx-0"
     >
       <div>
         <label className="block text-yellow-300 font-semibold mb-2">
